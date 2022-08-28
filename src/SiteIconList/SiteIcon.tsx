@@ -2,6 +2,7 @@ import React from 'react';
 import { Interpolation, Theme } from '@emotion/react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { SiteType } from './@types';
 
 const styles: { [key: string]: Interpolation<Theme> } = {
   wrap: {
@@ -19,11 +20,7 @@ const styles: { [key: string]: Interpolation<Theme> } = {
 /**
  * @package
  */
-export type SiteIconProps = {
-  id: number;
-  url: string;
-  title: string;
-};
+export type SiteIconProps = SiteType;
 
 /**
  * @package

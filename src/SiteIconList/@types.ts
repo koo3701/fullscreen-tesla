@@ -2,7 +2,7 @@
  * @package
  */
 export type SiteType = {
-  id: number;
+  id: number | string;
   url: string;
   title: string;
   order: number;
