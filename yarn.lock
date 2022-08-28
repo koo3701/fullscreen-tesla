@@ -8760,6 +8760,11 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+use-local-storage-state@^18.1.1:
+  version "18.1.1"
+  resolved "https://registry.yarnpkg.com/use-local-storage-state/-/use-local-storage-state-18.1.1.tgz#40e535aebed7770258e0a3a7b6923a86d9c0c52f"
+  integrity sha512-09bl6q3mkSlkEt8KeBPCmdPEWEojWYF70Qbz+7wkfQX1feaFITM9m84+h0Jr6Cnf/IvpahkFh7UbX2VNN3ioTQ==
+
 use-long-press@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/use-long-press/-/use-long-press-2.0.2.tgz#3c945ee45b671e9c6976fe5364bdb5f563b3ff82"

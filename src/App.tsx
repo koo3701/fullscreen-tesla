@@ -1,9 +1,10 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 import { Container } from 'reactstrap';
 import { arrayMove } from '@dnd-kit/sortable';
 import { SiteIconList, SiteIconListProps, SitesType } from './SiteIconList';
 import { InputSiteTextBox } from './InputSiteTextBox';
 import { Spacer } from './utils/components/Spacer';
+import useLocalStorageState from 'use-local-storage-state';
 
 const siteList: SitesType = [
   { id: 1, url: 'https://www.youtube.com/', title: 'YouTube', order: 1 },
@@ -32,7 +33,9 @@ export const SiteListContext = createContext<
 >([siteList, undefined]);
 
 const App: React.FC = () => {
-  const [sites, setSites] = useState(siteList);
+  const [sites, setSites] = useLocalStorageState('sites', {
+    defaultValue: siteList,
+  });
 
   const handleDragEnd: SiteIconListProps['onDragEnd'] = (event) => {
     const { active, over } = event;
