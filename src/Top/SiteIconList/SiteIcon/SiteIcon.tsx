@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Interpolation, Theme } from '@emotion/react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { SiteType } from './@types';
+import { SiteType } from '../../@types';
 import {
   LongPressDetectEvents,
   LongPressEventReason,
   useLongPress,
 } from 'use-long-press';
-import { SiteIconEditModal } from './SiteIconEditModal';
+import { SiteIconEditModal } from '../SiteIconEditModal';
 
 const styles: { [key: string]: Interpolation<Theme> } = {
   wrap: {

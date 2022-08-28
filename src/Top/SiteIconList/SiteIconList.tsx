@@ -11,7 +11,7 @@ import {
 import { SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 import { SiteIcon } from './SiteIcon';
-import { SitesType } from './@types';
+import { SitesType } from '../@types';
 
 /**
  * @package

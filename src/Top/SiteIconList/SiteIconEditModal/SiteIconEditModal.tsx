@@ -7,10 +7,10 @@ import {
   ModalFooter,
   ModalHeader,
 } from 'reactstrap';
-import { SiteType } from '../@types';
-import { Spacer } from '../../utils/components/Spacer';
-import { SiteListContext } from '../../App';
-import { useChangeIcon } from '../../utils/hooks/useChangeIcon';
+import { SiteType } from '../../@types';
+import { Spacer } from '../../../utils/components/Spacer';
+import { SiteListContext } from '../../Top';
+import { useChangeIcon } from '../../../utils/hooks/useChangeIcon';
 
 /**
  * @package
