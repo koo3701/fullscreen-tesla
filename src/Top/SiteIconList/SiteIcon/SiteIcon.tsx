@@ -54,7 +54,7 @@ export const SiteIcon: React.FC<SiteIconProps> = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleToggleModal = () => setModalOpen(!modalOpen);
 
-  const handleShortPress = () => console.log('short press');
+  const handleShortPress = () => (window.location.href = props.url);
   const handleLongPress = () => setModalOpen(true);
 
   const longPressListener = useLongPress(() => handleLongPress(), {
