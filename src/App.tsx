@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { Container } from 'reactstrap';
 import { arrayMove } from '@dnd-kit/sortable';
 import { SiteIconList, SiteIconListProps, SitesType } from './SiteIconList';
-import { InputSiteTextBox, InputSiteTextBoxProps } from './InputSiteTextBox';
+import { InputSiteTextBox } from './InputSiteTextBox';
 import { Spacer } from './utils/components/Spacer';
-
-import { v4 as uuidv4 } from 'uuid';
 
 const siteList: SitesType = [
   { id: 1, url: 'https://www.youtube.com/', title: 'YouTube', order: 1 },
@@ -29,26 +27,12 @@ const siteList: SitesType = [
   },
 ];
 
+export const SiteListContext = createContext<
+  [SitesType, React.Dispatch<React.SetStateAction<SitesType>> | undefined]
+>([siteList, undefined]);
+
 const App: React.FC = () => {
-  const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
   const [sites, setSites] = useState(siteList);
-
-  const handleChangeUrl: InputSiteTextBoxProps['onChangeUrl'] = (event) =>
-    setUrl(event.target.value);
-
-  const handleChangeTitle: InputSiteTextBoxProps['onChangeTitle'] = (event) =>
-    setTitle(event.target.value);
-
-  const handleAdd = () => {
-    setSites([
-      ...sites,
-      { id: uuidv4(), url: url, title: title, order: sites.length },
-    ]);
-
-    setUrl('');
-    setTitle('');
-  };
 
   const handleDragEnd: SiteIconListProps['onDragEnd'] = (event) => {
     const { active, over } = event;
@@ -69,20 +53,16 @@ const App: React.FC = () => {
   };
 
   return (
-    <Container className='d-flex flex-row flex-wrap'>
-      <Container>
-        <Spacer size='10px' />
-        <InputSiteTextBox
-          url={url}
-          onChangeUrl={handleChangeUrl}
-          title={title}
-          onChangeTitle={handleChangeTitle}
-          onAdd={handleAdd}
-        />
-        <Spacer size='10px' />
+    <SiteListContext.Provider value={[sites, setSites]}>
+      <Container className='d-flex flex-row flex-wrap'>
+        <Container>
+          <Spacer size='10px' />
+          <InputSiteTextBox />
+          <Spacer size='10px' />
+        </Container>
+        <SiteIconList onDragEnd={handleDragEnd} sites={sites} />
       </Container>
-      <SiteIconList onDragEnd={handleDragEnd} sites={sites} />
-    </Container>
+    </SiteListContext.Provider>
   );
 };
 

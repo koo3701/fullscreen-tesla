@@ -1,9 +1,14 @@
-import React, { ComponentProps } from 'react';
+import React, { useState } from 'react';
 import { Interpolation, Theme } from '@emotion/react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { SiteType } from './@types';
-import { useLongPress } from 'use-long-press';
+import {
+  LongPressDetectEvents,
+  LongPressEventReason,
+  useLongPress,
+} from 'use-long-press';
+import { SiteIconEditModal } from './SiteIconEditModal';
 
 const styles: { [key: string]: Interpolation<Theme> } = {
   wrap: {
@@ -15,6 +20,9 @@ const styles: { [key: string]: Interpolation<Theme> } = {
     whiteSpace: 'nowrap',
     width: '100%',
     overflow: 'hidden',
+  },
+  popover: {
+    width: 120,
   },
 };
 
@@ -43,33 +51,54 @@ export const SiteIcon: React.FC<SiteIconProps> = (props) => {
     opacity: isDragging ? 0.3 : 1,
   };
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleToggleModal = () => setModalOpen(!modalOpen);
+
   const handleShortPress = () => console.log('short press');
-  const handleLongPress = () => console.log('long press');
+  const handleLongPress = () => setModalOpen(true);
 
   const longPressListener = useLongPress(() => handleLongPress(), {
-    threshold: 2000,
+    threshold: 750,
     onCancel: (_, meta) =>
-      meta.reason !== 'canceled-by-movement' ? handleShortPress() : null,
+      meta.reason !== LongPressEventReason.CANCELED_BY_MOVEMENT
+        ? handleShortPress()
+        : undefined,
     cancelOnMovement: true,
+    detect: LongPressDetectEvents.TOUCH,
   });
 
+  const touchAction = {
+    touchAction: isDragging ? 'none' : 'auto',
+  };
+
+  const id = `icon-${props.id}`;
+
   return (
-    <div
-      className='text-center'
-      css={[styles.wrap, style]}
-      ref={setNodeRef}
-      {...attributes}
-      {...listeners}
-      {...longPressListener()}
-    >
-      <img
-        src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
-          props.url
-        )}&size=128`}
-        alt={props.title}
-        className='h-75'
+    <>
+      <div
+        id={id}
+        className='text-center'
+        css={[styles.wrap, style, touchAction]}
+        ref={setNodeRef}
+        {...attributes}
+        {...listeners}
+        {...longPressListener()}
+      >
+        <img
+          src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
+            props.url
+          )}&size=128`}
+          alt={props.title}
+          className='h-75'
+          css={touchAction}
+        />
+        <p css={[styles.caption, touchAction]}>{props.title}</p>
+      </div>
+      <SiteIconEditModal
+        isOpen={modalOpen}
+        toggle={handleToggleModal}
+        {...props}
       />
-      <p css={styles.caption}>{props.title}</p>
-    </div>
+    </>
   );
 };

@@ -2,17 +2,13 @@ import React from 'react';
 import {
   DndContext,
   closestCenter,
-  KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   DndContextProps,
 } from '@dnd-kit/core';
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  rectSortingStrategy,
-} from '@dnd-kit/sortable';
+import { SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 import { SiteIcon } from './SiteIcon';
 import { SitesType } from './@types';
@@ -29,12 +25,7 @@ export type SiteIconListProps = {
  * @package
  */
 export const SiteIconList: React.FC<SiteIconListProps> = (props) => {
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
+  const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
 
   return (
     <div className='w-100 h-100 d-flex flex-row flex-wrap'>
