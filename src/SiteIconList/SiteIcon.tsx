@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { Interpolation, Theme } from '@emotion/react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { SiteType } from './@types';
+import { useLongPress } from 'use-long-press';
 
 const styles: { [key: string]: Interpolation<Theme> } = {
   wrap: {
@@ -42,6 +43,16 @@ export const SiteIcon: React.FC<SiteIconProps> = (props) => {
     opacity: isDragging ? 0.3 : 1,
   };
 
+  const handleShortPress = () => console.log('short press');
+  const handleLongPress = () => console.log('long press');
+
+  const longPressListener = useLongPress(() => handleLongPress(), {
+    threshold: 2000,
+    onCancel: (_, meta) =>
+      meta.reason !== 'canceled-by-movement' ? handleShortPress() : null,
+    cancelOnMovement: true,
+  });
+
   return (
     <div
       className='text-center'
@@ -49,6 +60,7 @@ export const SiteIcon: React.FC<SiteIconProps> = (props) => {
       ref={setNodeRef}
       {...attributes}
       {...listeners}
+      {...longPressListener()}
     >
       <img
         src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
