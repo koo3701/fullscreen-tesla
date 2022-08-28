@@ -45,6 +45,11 @@ export const SiteIconEditModal: React.FC<SiteIconEditModalProps> = (props) => {
     props.toggle();
   };
 
+  const handleDelete = () => {
+    setSites && setSites(sites.filter((site) => site.id !== props.id));
+    props.toggle();
+  };
+
   return (
     <Modal isOpen={props.isOpen} toggle={props.toggle} unmountOnClose>
       <ModalHeader>Edit</ModalHeader>
@@ -74,6 +79,13 @@ export const SiteIconEditModal: React.FC<SiteIconEditModalProps> = (props) => {
         />
       </ModalBody>
       <ModalFooter>
+        <Button
+          color='danger'
+          onClick={handleDelete}
+          style={{ marginRight: 'auto' }}
+        >
+          Delete
+        </Button>
         <Button color='primary' onClick={handleSave}>
           Save
         </Button>
