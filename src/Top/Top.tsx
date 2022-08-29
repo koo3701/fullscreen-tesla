@@ -6,6 +6,7 @@ import { InputSiteTextBox } from './InputSiteTextBox';
 import { Spacer } from '../utils/components/Spacer';
 import useLocalStorageState from 'use-local-storage-state';
 import { SitesType } from './@types';
+import { FavMode } from './FavMode';
 
 const siteList: SitesType = [
   { id: 1, url: 'https://www.youtube.com/', title: 'YouTube', order: 1 },
@@ -72,6 +73,9 @@ export const Top: React.FC = () => {
         </Container>
         <SiteIconList onDragEnd={handleDragEnd} sites={sites} />
       </Container>
+      <div className='position-absolute top-0 end-0'>
+        <FavMode />
+      </div>
     </SiteListContext.Provider>
   );
 };
