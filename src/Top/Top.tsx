@@ -7,42 +7,21 @@ import { Spacer } from '../utils/components/Spacer';
 import useLocalStorageState from 'use-local-storage-state';
 import { SitesType } from './@types';
 import { FavMode } from './FavMode';
-
-const siteList: SitesType = [
-  { id: 1, url: 'https://www.youtube.com/', title: 'YouTube', order: 1 },
-  {
-    id: 2,
-    url: 'https://animestore.docomo.ne.jp/animestore/tp_pc',
-    title: 'dアニメストア | 初めての方は初月無料のアニメ見放題サイト！',
-    order: 2,
-  },
-  {
-    id: 3,
-    url: 'https://abema.tv/',
-    title: 'ABEMA | 無料動画・話題の作品が楽しめる新しい未来のテレビ',
-    order: 3,
-  },
-  {
-    id: 4,
-    url: 'https://tweetdeck.twitter.com/',
-    title: 'TweetDeck',
-    order: 4,
-  },
-];
+import { defaultSiteList } from './defaultSiteList';
 
 /**
  * @package
  */
 export const SiteListContext = createContext<
   [SitesType, React.Dispatch<React.SetStateAction<SitesType>> | undefined]
->([siteList, undefined]);
+>([defaultSiteList, undefined]);
 
 /**
  * @package
  */
 export const Top: React.FC = () => {
   const [sites, setSites] = useLocalStorageState('sites', {
-    defaultValue: siteList,
+    defaultValue: defaultSiteList,
   });
 
   const handleDragEnd: SiteIconListProps['onDragEnd'] = (event) => {
