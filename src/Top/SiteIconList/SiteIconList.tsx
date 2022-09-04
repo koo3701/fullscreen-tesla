@@ -36,7 +36,7 @@ export const SiteIconList: React.FC<SiteIconListProps> = (props) => {
       >
         <SortableContext items={props.sites} strategy={rectSortingStrategy}>
           {props.sites.map((site) => (
-            <SiteIcon key={site.id} {...site} />
+            <SiteIcon key={site.id} siteId={site.id} />
           ))}
         </SortableContext>
       </DndContext>

@@ -2,12 +2,11 @@ import React, { createContext } from 'react';
 import { Container } from 'reactstrap';
 import { arrayMove } from '@dnd-kit/sortable';
 import { SiteIconList, SiteIconListProps } from './SiteIconList';
-import { InputSiteTextBox } from './InputSiteTextBox';
-import { Spacer } from '../utils/components/Spacer';
 import useLocalStorageState from 'use-local-storage-state';
 import { SitesType } from './@types';
 import { FavMode } from './FavMode';
 import { defaultSiteList } from './defaultSiteList';
+import { SiteIconAddButton } from './SiteIconAddButton';
 
 /**
  * @package
@@ -44,16 +43,14 @@ export const Top: React.FC = () => {
 
   return (
     <SiteListContext.Provider value={[sites, setSites]}>
-      <Container className='d-flex flex-row flex-wrap'>
-        <Container>
-          <Spacer size='10px' />
-          <InputSiteTextBox />
-          <Spacer size='10px' />
-        </Container>
+      <Container className='d-flex flex-row flex-wrap p-5'>
         <SiteIconList onDragEnd={handleDragEnd} sites={sites} />
       </Container>
-      <div className='position-absolute top-0 end-0'>
+      <div className='position-absolute top-0 end-0 p-1'>
         <FavMode />
+      </div>
+      <div className='position-absolute bottom-0 end-0 p-1'>
+        <SiteIconAddButton />
       </div>
     </SiteListContext.Provider>
   );
