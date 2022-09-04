@@ -21,7 +21,7 @@ export const FavMode: React.FC<FavModeProps> = (props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/open', { replace: true, state: true });
+    navigate('/open', { state: true });
   };
 
   return (
